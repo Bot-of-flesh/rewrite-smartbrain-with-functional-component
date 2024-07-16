@@ -1,4 +1,4 @@
-import React, {  useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Navigation from './components/Navigation/Navigation';
 import './App.css';
 import Logo from './components/Logo/Logo';
@@ -30,7 +30,30 @@ function App() {
   const[box, setBox] = useState({});
   const[route, setRoute] = useState('signin');
   const[isSignedIn, setIsSignedIn] = useState(false);
+  const[user, setUser] = useState(
+    {
+      id : '',
+      name : '',
+      email :'',
+      password : '',
+      entries : 0,
+      joined : ''
+  })
 
+  const update = (data) =>{
+    setUser(Object.assign(user, {entries: data}))
+  }
+
+ const loadUser = (data) => {
+    setUser({
+      id: data.id,
+      name : data.name,
+      email: data.email,
+      password: data.password,
+      entries : data.entries,
+      joined : data.joined
+    })
+  }
 
   const calculateFaceLocation = (data) =>{
     const clarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box
@@ -71,7 +94,7 @@ function App() {
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Your PAT (Personal Access Token) can be found in the Account's Security section
-const PAT = '0626b67b1de14e76b0c5e4f88c065cef';
+const PAT = '';
 // Specify the correct user_id/app_id pairings
 // Since you're making inferences outside your app's scope
 const USER_ID = 'clarifai';
@@ -119,6 +142,19 @@ const requestOptions = {
 fetch("https://api.clarifai.com/v2/models/" + MODEL_ID + "/versions/" + MODEL_VERSION_ID + "/outputs", requestOptions)
     .then(response => response.json())
     .then(result => {
+      if(result){
+        fetch('http://localhost:3000/image', {
+          method: 'put',
+          mode: 'cors',
+          headers : {'Content-Type': 'application/json'},
+          body : JSON.stringify({
+              id : user.id
+          })
+      })
+      .then(response => response.json())
+      .then(count => update(count));
+      console.log(user);
+    }
       displayFaceBox(calculateFaceLocation(result));
         const regions = result.outputs[0].data.regions;
         regions.forEach(region => {
@@ -136,7 +172,7 @@ fetch("https://api.clarifai.com/v2/models/" + MODEL_ID + "/versions/" + MODEL_VE
                 const value = concept.value.toFixed(4);
 
                 console.log(`${name}: ${value} BBox: ${topRow}, ${leftCol}, ${bottomRow}, ${rightCol}`);
-                
+                return user;
             });
         });
 
@@ -155,16 +191,17 @@ fetch("https://api.clarifai.com/v2/models/" + MODEL_ID + "/versions/" + MODEL_VE
       { route === 'home' 
         ?<div>
             <Logo />
-            <Rank />
+            <Rank name={user.name}  entries={user.entries} />
             <ImageLinkForm 
               onInputChange={onInputChange}
-              onButtonSubmit={onButtonSubmit} />
+              onButtonSubmit={onButtonSubmit}
+            />
             <FaceRecognition box={box} ImageUrl={ImageUrl}/>
          </div>
         :(
           route === 'signin'?
-          <Signin OnRouteChange ={ OnRouteChange }/>
-          :<Register OnRouteChange ={ OnRouteChange }/>
+          <Signin OnRouteChange ={ OnRouteChange } loadUser={ loadUser }/>
+          :<Register OnRouteChange ={ OnRouteChange } loadUser={ loadUser }/>
         )
       }
     </div>
