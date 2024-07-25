@@ -9,6 +9,7 @@ const FaceRecognition = ({ImageUrl, box}) =>{
             </div>            
         </div>
     )
+    /* マップでdivを増やす*/
 }
 
 export default FaceRecognition;

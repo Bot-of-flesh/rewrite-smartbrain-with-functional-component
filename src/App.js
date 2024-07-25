@@ -104,7 +104,7 @@ function App() {
 
   const onButtonSubmit = () =>{
     setImageurl(inform);
-    fetch('http://localhost:3000/imageURL', {
+    fetch('https://smart-brain-api-dx8u.onrender.com/imageURL', {
           method: 'post',
           mode: 'cors',
           headers : {'Content-Type': 'application/json'},
@@ -115,7 +115,7 @@ function App() {
     .then(response => response.json())
     .then(result => {
       if(result.outputs[0].data.regions[0].region_info.bounding_box){
-        fetch('http://localhost:3000/image', {
+        fetch('https://smart-brain-api-dx8u.onrender.com/image', {
           method: 'put',
           mode: 'cors',
           headers : {'Content-Type': 'application/json'},

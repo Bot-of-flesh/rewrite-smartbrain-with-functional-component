@@ -17,7 +17,7 @@ const Register = ({OnRouteChange, loadUser}) => {
     }
 
     const OnSubmitRegister = () => {
-        fetch('http://localhost:3000/register', {
+        fetch('https://smart-brain-api-dx8u.onrender.com/register', {
             method: 'POST',
             mode: 'cors',
             headers : {'Content-Type': 'application/json'},
