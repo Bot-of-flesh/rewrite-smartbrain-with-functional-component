@@ -29,7 +29,7 @@ const Register = ({OnRouteChange, loadUser}) => {
         })
         .then(response => response.json())
         .then(user => {
-            if (user){
+            if (user.id){
                 loadUser(user);
                 OnRouteChange('home');
             }
@@ -41,9 +41,9 @@ const Register = ({OnRouteChange, loadUser}) => {
             <main className="pa4 black-80">
                 <div className="measure">
                 <fieldset id="sign_up" className="ba b--transparent ph0 mh0">
-                    <legend className="f1 fw6 ph0 mh0">Register</legend>
+                    <legend className="f1 fw6 ph0 mh0">登録</legend>
                     <div className="mt3">
-                        <label className="db fw6 lh-copy f6" htmlFor="email-address">Name</label>
+                        <label className="db fw6 lh-copy f6" htmlFor="email-address">名前</label>
                         <input 
                             className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" 
                             type="text" name="name"  
@@ -52,7 +52,7 @@ const Register = ({OnRouteChange, loadUser}) => {
                         />
                     </div>
                     <div className="mt3">
-                        <label className="db fw6 lh-copy f6" htmlFor="email-address">Email</label>
+                        <label className="db fw6 lh-copy f6" htmlFor="email-address">email</label>
                         <input 
                             className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" 
                             type="email" name="email-address"  
@@ -61,7 +61,7 @@ const Register = ({OnRouteChange, loadUser}) => {
                         />
                     </div>
                     <div className="mv3">
-                        <label className="db fw6 lh-copy f6" htmlFor="password">Password</label>
+                        <label className="db fw6 lh-copy f6" htmlFor="password">パスワード</label>
                         <input 
                             className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" 
                             type="password" 
@@ -76,7 +76,7 @@ const Register = ({OnRouteChange, loadUser}) => {
                     onClick={() => OnSubmitRegister()}
                     className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" 
                     type="submit" 
-                    value="Register" />
+                    value="登録" />
                 </div>
                 </div>
             </main>
