@@ -30,7 +30,7 @@ const partclesOptions = {
 function App() {
   const[inform, setInform] = useState('');
   const[ImageUrl, setImageurl] = useState('');
-  const[box, setBox] = useState({});
+  const[box, setBox] = useState([]);
   const[route, setRoute] = useState('signin');
   const[isSignedIn, setIsSignedIn] = useState(false);
   const[user, setUser] = useState(
@@ -46,7 +46,7 @@ function App() {
   const initialState = () => {
     setInform('');
     setImageurl('');
-    setBox({});
+    setBox([]);
     setRoute('signin');
     setIsSignedIn(false);
     setUser(
@@ -72,21 +72,19 @@ function App() {
   }
 
   const calculateFaceLocation = (data) =>{
-    const clarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box
-    console.log(clarifaiFace);
     const image = document.getElementById('inputimage');
     const width = Number(image.width);
     const height = Number(image.height);
     return {
-      leftCol : clarifaiFace.left_col * width,
-      topRow : clarifaiFace.top_row * height,
-      rightCol : width - (clarifaiFace.right_col * width),
-      bottomRow : height - (clarifaiFace.bottom_row * height)
+      leftCol : data.left_col * width,
+      topRow : data.top_row * height,
+      rightCol : width - (data.right_col * width),
+      bottomRow : height - (data.bottom_row * height)
     }
   }
 
-  const displayFaceBox = (box) => {
-    setBox(box);
+  const displayFaceBox = (line) => {
+    setBox(box => [...box, line]);
   }
 
   const OnRouteChange = (route) => {
@@ -126,7 +124,7 @@ function App() {
       .then(response => response.json())
       .then(count => setUser(user => ({...user, entries: count})))
     }
-      displayFaceBox(calculateFaceLocation(result));
+    setBox([]);
         const regions = result.outputs[0].data.regions;
         regions.forEach(region => {
             // Accessing and rounding the bounding box values
@@ -136,12 +134,11 @@ function App() {
             const leftCol = boundingBox.left_col.toFixed(3);
             const bottomRow = boundingBox.bottom_row.toFixed(3);
             const rightCol = boundingBox.right_col.toFixed(3);
-
+            displayFaceBox(calculateFaceLocation(boundingBox));
             region.data.concepts.forEach(concept => {
                 // Accessing and rounding the concept value
                 const name = concept.name;
                 const value = concept.value.toFixed(4);
-
                 console.log(`${name}: ${value} BBox: ${topRow}, ${leftCol}, ${bottomRow}, ${rightCol}`);
                 return user;
             });
