@@ -1,70 +1,68 @@
-# Getting Started with Create React App
+#　画像認識ウェブアプリケーションスマートブレイン
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+このウェブアプリケーションの機能と使い方の説明をしていきます。
 
-## Available Scripts
+##　使い方
 
-In the project directory, you can run:
+大きく分けて3段階あります。
 
-### `npm start`
+###　`ユーザー登録`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+まず登録画面よりユーザー登録を行ってください。
+上から順に
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+名前（任意）
+メールアドレス
+パスワード
 
-### `npm test`
+を登録してください。
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+###　`サインイン`
 
-### `npm run build`
+登録が終了したらサインインの文字をクリックしサインインを行ってください。
+上から順に
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+メールアドレス
+パスワード
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+を入力してください。
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+###　`画像URLをフォームに入力`
 
-### `npm run eject`
+画像URL（画像の拡張子で終わるもの）を入力し認識と書いてあるボタンをクリックしてください。
+画像の中の顔が四角い青い枠で囲まれます。
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+##　使用技術（フロントエンド）
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+###　React
+使いまわしが容易で高速なjavascriptライブラリです。
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+###　Tachyons
+cssを直接書かなくてもクラスで指定すれば容易に変更できるcssフレームワークです。
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Clarifai
+AIによる画像、映像、文書、音声認識の総合プラットフォームです。
+画像認識apiを使い出力された結果を加工し、画像上に表示しております。
 
-## Learn More
+##　使用技術（バックエンド）
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+###　Bcrypt
+レインボーテーブル、タイミングアタックなどに有効なハッシュ関数です。
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+###　Node.js
+ブラウザの外でもjavascriptの実行を可能にするランタイムです。
 
-### Code Splitting
+###　Express
+上記のnode.jsのフレームワークであり、異なったルートにおけるhttpリクエストとレスポンスを簡略化できます。
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+###　PostgreSQL
+リレーショナルデータベースの一種です。後述するRenderで提供されたものを使用しております。
 
-### Analyzing the Bundle Size
+###　Knex
+上記postgreSQLに対応するクエリービルダーです。速やかな非同期制御のためにプロミス記法を採用し、トランザクションによりデータの一貫性を保持することもできます。
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+##　ホスティングサービス
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+###　Render
+Githubにあるリポジトリを指定しプッシュすれば自動的にデプロイしてくれるホスティングサービスです。
+herokuとよく似ています。
