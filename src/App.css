@@ -15,3 +15,18 @@
   left: 0;
   z-index: -1;
 }
+
+.message {
+  display: flex;
+}
+
+.message p {
+  margin-left: 25%;
+  margin-bottom: 0%;
+  padding-bottom: 0%;
+}
+
+.message nav {
+  display :flex;
+  white-space: nowrap;
+}
