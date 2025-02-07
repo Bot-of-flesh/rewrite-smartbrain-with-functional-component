@@ -5,7 +5,7 @@ const ImageLinkForm = ({ onInputChange, onButtonSubmit }) =>{
     return(
         <div>
             <p className="f3">
-                {`スマートブレインが画像の中の顔を認識します。ぜひお試しください！`}
+                {`スマートブレインが画像の中の顔を認識します。URLを入力してください。`}
             </p>
             <div className="center">
                 <div className="form center pa4 br3 shadow-5">
